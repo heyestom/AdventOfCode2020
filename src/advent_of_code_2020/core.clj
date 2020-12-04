@@ -3,14 +3,21 @@
 (defn find-tupple-suming [target-val nums]
   (let [num (first nums)
         remaining (rest nums)
-        summing-tupple (some #(when (= target-val (+ num %)) [num %]) remaining)]
-    (if summing-tupple
-      summing-tupple
-      (when (seq remaining)
+        target-num (- target-val num)]
+    (if (some #(= target-num %) remaining)
+      [num target-num]
+      (when (> (count remaining) 1)
         (recur target-val remaining)))))
 
-
-
+(defn find-tripple-suming [target-val nums]
+  (let [num (first nums)
+        remaining (rest nums)
+        tupple-target (- target-val num)
+        summing-tupple (find-tupple-suming tupple-target remaining)]
+    (if summing-tupple
+      (conj summing-tupple num)
+      (when (> (count remaining) 2)
+        (recur target-val remaining)))))
 
 (def data [2004
            1671
@@ -214,7 +221,10 @@
            1532])
 
 (defn main []
-  (let [tuple  (find-tupple-suming 2020 data)]
+  (let [tuple  (find-tupple-suming 2020 data)
+        tripple (find-tripple-suming 2020 data)]
     (println (str "Tuple : " tuple))
-    (println (str "Answer: " (reduce * tuple)))
-    tuple))
+    (println (str "Answer 1: " (reduce * tuple)))
+    (println (str "triple: " tripple))
+    (println (str "Answer 2: " (reduce * tripple)))
+))
