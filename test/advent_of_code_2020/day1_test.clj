@@ -1,6 +1,6 @@
-(ns advent-of-code-2020.core-test
+(ns advent-of-code-2020.day1-test
   (:require [clojure.test :refer :all]
-            [advent-of-code-2020.core :refer :all]))
+            [advent-of-code-2020.day1 :refer :all]))
 
 (deftest finding-two-nums-with-summate-to-target
   (testing "when two numbers in a list sumate to the target val returns them in a tuple"
